@@ -1,7 +1,25 @@
-<?php include ('shared/giBaseline2.php') ?>
+<?php include ('shared/Baseline2.php');
+        $row = getAvailableRooms();
+        $err = "";
+        $_SESSION['uuid'] = "";
+        $_SESSION['hours'] = "";
+        $_SESSION['room'] = "";
+        if(isset($_GET['proceed'])){
+            $ret = isCard($_GET['uuid']);
+            if($ret){
+                $_SESSION['uuid'] = $_GET['uuid'];
+                $_SESSION['hours'] = $_GET['hours'];
+                $_SESSION['room'] = $_GET['room'];
+                header('Location: KaraokeHour(Room).php');
+            }else{
+                $err = "Invalid Card Number!";
+            }
+        }
+?>
 
 <div class = "col-md-9 right">
     <h3 class = "m-3">Hourly Subscription</h3>
+    <h6 style="color:red"> <?php echo $err; ?> </h6>
     <center>
     <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
         <div class="card-body">
@@ -13,7 +31,7 @@
                 </tr>
                 <tr class="table-light">
                     <th>Classic</th>
-                    <td>PHP 50.00 / per hour</td>
+                    <td>PHP 65.00 / per hour</td>
                 </tr>
                 <tr class="table-light">
                     <th>VIP</th>
@@ -25,20 +43,22 @@
     </div>
     <div class="card text-white bg-secondary " style="max-width: 20rem;">
         <div class="card-body">
-        <form class="form-group row">
+        <form class="form-group row" action="" method="get">
                 <div class="col-sm-12">
-                    <input type="text" class="form-control mt-3 mb-2    " id="staticEmail" placeholder = "Enter Number of Hours...">
-                    <select class="form-control" id="exampleSelect1">
-                        <option>Room Number:</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                    <input type="number" name="hours" class="form-control mt-3 mb-2" id="staticEmail" min="1" placeholder = "Enter Number of Hours..." required>
+                    <input type="number" name="uuid" class="form-control" id="staticEmail" min="0" placeholder = "Enter card number..." required> &nbsp
+        
+                    <select name="room" class="form-control" id="exampleSelect1" required>
+                        <optgroup label="Room Number:">
+                   <?php while( $rooms = mysqli_fetch_assoc($row)){
+                            if($rooms['status'] == 'unoccupied'){
+                                echo "<option value=".$rooms['room_id'].">".$rooms['room_id']."</option>";
+                            }
+                   }?>
+                    </optgroup>
                     </select>
                     <div class="btn-group btn-group-sm mt-4" role="group">   
-                        <button class = "btn-line btn-primary btn-sm  mr-5" style = "width: 100px;">Cancel</button>
-                        <a href="KaraokeHour(Room).php" class = "btn-line btn-primary btn-sm" style = "width: 100px;">Confirm</a>
+                        <button class = "btn-line btn-primary btn-sm" name="proceed" style = "width: 100px;">Proceed</button>
                     </div>
                 </div>
             </form>

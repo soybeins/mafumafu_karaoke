@@ -22,20 +22,17 @@
         <table class="table text-dark mt-3">
             <tbody>
             <tr class="table-light">
-                    <th>Song Rate:</th>
-                    <td></td>
-                    <th>Hour Rate:</th>
+                    <th></th>
+                    <th>Hourly Rate for Cardholders:</th>
                     <td></td>
                 </tr>
                 <tr class="table-light">
+                <th></th>
                     <th>Classic</th>
-                    <td>PHP 5.00 / per hour</td>
-                    <th>Classic</th>
-                    <td>PHP 50.00 / per hour</td>
+                    <td>PHP 65.00 / per hour</td>
                 </tr>
                 <tr class="table-light">
-                    <th>VIP</th>
-                    <td>PHP 4.00 / per hour</td>
+                <th></th>
                     <th>VIP</th>
                     <td>PHP 40.00 / per hour</td>
                 </tr>
@@ -43,9 +40,9 @@
         </table>
         </div>
     </div>
-    <button class = "btn btn-secondary btn-sm mt-2">Cancel</button>
-    <a href="VIP(Swipe).php" class = "btn btn-secondary btn-sm mt-2">Confirm</a>
+    <a href="VIP(Swipe).php" class = "btn btn-secondary btn-sm mt-2">Proceed</a>
     </center>
 </div>
+
 
 <?php include ('shared/footer.php') ?>

@@ -1,3 +1,8 @@
+<?php session_start();
+        include('../functions.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +16,8 @@
     <div class = "container-fluid">
         <div class = "row">
             <div class = "col-md-3 logo p-2">
-                <img id="logo" src="/Karaoke/img/logo.png" alt="">
-				<img id="title" src="/Karaoke/img/title.png" alt="">
+                <img id="logo" src="../img/logo.png" alt="">
+				<img id="title" src="../img/title.png" alt="">
             </div>
             <div class = "col-md-9 top d-flex align-items-center">
                     

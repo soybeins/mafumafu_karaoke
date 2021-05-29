@@ -12,12 +12,7 @@
         <div class="col-sm-12 col-md-3 col-lg-2 offset-sm-0 offset-md-9 offset-lg-10">
             <div class="row">
                 <div class = "offset-sm-1 offset-md-0 col-sm-5 col-md-12">
-                        <h5 id = "cash-register-id" class="bold">Cash Register ID</h5>
-                        <h6>100000001</h6>
-                </div>
-                <div class = "col-sm-5 col-md-12" >
-                        <h5 id = "branch-id" class="bold">Branch ID</h5>
-                        <h6>100000001</h6>
+                        <h5 id = "cash-register-id" class="bold">Mafumafu Karaoke Manager 2021</h5>
                 </div>
             </div>
         </div>
@@ -35,7 +30,8 @@
 
         <div class="col-sm-12 mt-5 py-5">
             <div class = "col-sm-10 col-md-5 col-lg-3 offset-sm-1 offset-md-7 offset-lg-8">
-                <a href="Login.php" class="btn btn-light col-sm-12">Employee Login</a>
+                <a href="login.php" class="btn btn-light col-sm-12">Employee Login</a>&emsp;
+                <a href="admin-login.php" class="btn btn-light col-sm-12">Admin Login</a>
             </div>
         </div>
     </div> 

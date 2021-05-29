@@ -10,11 +10,15 @@ function connectDB(){
     
     return $con;
 }
-
-//===================================================== E M P L O Y E E  F U N C T I O N S ==============================================
+//Modules Assignment
+//Hosea
+//Teris
+//earl
+//soy
+//===================================================== S Y S T E M   F U N C T I O N S (M O D U L E S) ==============================================
 
 //  ======================EMPLOYEE LOG-IN ====================
-function empLogin($email,$pass){
+function empLogin($email,$pass){//Earl
     $con = connectDB();
     $ret = 0;
     $query = "select employee_id,email,password from employee where email = '$email' && password = '$pass'";
@@ -28,7 +32,7 @@ function empLogin($email,$pass){
     return $ret;
 }
 
-function empDetails($email,$pass){
+function empDetails($email,$pass){//Earl
     $con = connectDB();
     $ret = 0;
     $row;
@@ -43,7 +47,7 @@ function empDetails($email,$pass){
     return $row;
 }
 
-function empDetail($empId){
+function empDetail($empId){//Earl
     $con = connectDB();
     $ret = 0;
     $row;
@@ -65,7 +69,7 @@ function empDetail($empId){
 
 //  ====================== SELECT FUNCTIONS ====================
 
-function isCard($uuid){
+function isCard($uuid){//Teris
     $con = connectDB();
     $ret = 0;
     $query = "select count(card_id) as count,card_uuid from card where card_uuid = $uuid";
@@ -81,7 +85,7 @@ function isCard($uuid){
     return $ret;
 }
 
-function isAdmin($empId){
+function isAdmin($empId){//soy
     $con = connectDB();
     $ret = 0;
     $res = mysqli_query($con,"select * from employee where employee_id = $empId");
@@ -96,7 +100,7 @@ function isAdmin($empId){
     return $ret;
 }
 
-function displayCards(){
+function displayCards(){//Teris
     $con = connectDB();
     $query = "select * from card";
 
@@ -105,7 +109,7 @@ function displayCards(){
     return $res;
 }
 
-function displayEmployees(){
+function displayEmployees(){//Earl
     $con = connectDB();
     $query = "select * from employee";
 
@@ -114,7 +118,7 @@ function displayEmployees(){
     return $res;
 }
 
-function displayEmployeeById($empId){
+function displayEmployeeById($empId){//Earl
     $con = connectDB();
 
     $res  = mysqli_query($con,"select * from employee where employee_id = $empId ");
@@ -123,7 +127,7 @@ function displayEmployeeById($empId){
 }
 
 
-function displayEmployee($name){
+function displayEmployee($name){//Earl
     $con = connectDB();
 
     $res  = mysqli_query($con,"select * from employee where concat(firstname,' ',middlename,' ',lastname) like '%$name%' ");
@@ -131,7 +135,7 @@ function displayEmployee($name){
     return $res;
 }
 
-function displayCard($uuid){
+function displayCard($uuid){//Teris
     $con = connectDB();
     $query = "select * from card where card_uuid = $uuid";
 
@@ -140,7 +144,7 @@ function displayCard($uuid){
     return $res;
 }
 
-function displayTransactions(){
+function displayTransactions(){//Hosea
    $con = connectDB();
    $query="select * from transaction";
 
@@ -149,7 +153,7 @@ function displayTransactions(){
    return $res; 
 }
 
-function displayRooms(){
+function displayRooms(){//soy
     $con = connectDB();
     $query="select * from room";
  
@@ -158,7 +162,7 @@ function displayRooms(){
     return $res;  
 }
 
-function displayRoom($key){
+function displayRoom($key){//soy
     $con = connectDB();
     $query="select * from room where concat(room_name,' ',type,' ',status) like '%$key%' ";
  
@@ -167,7 +171,7 @@ function displayRoom($key){
     return $res;  
 }
 
-function getAvailableRooms(){
+function getAvailableRooms(){//soy
     $con = connectDB();
 
     $query = "select * from room where status = 'unoccupied'";
@@ -175,7 +179,7 @@ function getAvailableRooms(){
     return mysqli_query($con,$query);
 }
 
-function getRoomtime($roomId){
+function getRoomtime($roomId){//soy
     $con = connectDB();
 
     $query = "select roomtime.roomtime_id as roomtime_id from roomtime inner join room on roomtime.room_id = room.room_id where roomtime.room_id = $roomId && roomtime.flag = 'T'";
@@ -183,7 +187,7 @@ function getRoomtime($roomId){
     return mysqli_query($con,$query);
 }
 
-function getRoomtime2($roomtimeId,$roomId){
+function getRoomtime2($roomtimeId,$roomId){//soy
     $con = connectDB();
 
     $query = "select roomtime.roomtime_id,roomtime.time_end as time_end from roomtime inner join room on roomtime.room_id = room.room_id 
@@ -192,7 +196,7 @@ function getRoomtime2($roomtimeId,$roomId){
     return mysqli_query($con,$query);
 }
 
-function getRoomtimeId($room,$date,$time_start){
+function getRoomtimeId($room,$date,$time_start){//soy
     $con = connectDB();
 
     $query = "select roomtime_id from roomtime where room_id = $room && date = '$date' && time_start = '$time_start'";
@@ -200,7 +204,7 @@ function getRoomtimeId($room,$date,$time_start){
     return mysqli_query($con,$query);
 }
 
-function displayRoomtime(){
+function displayRoomtime(){//soy
     $con = connectDB();
 
     return mysqli_query($con,"select * from roomtime rt,room r where rt.room_id = r.room_id");
@@ -211,7 +215,7 @@ function displayRoomtime(){
 
 //  ====================== INSERT FUNCTIONS ====================
 
-function createCard($card_uuid){
+function createCard($card_uuid){//Teris
     $cards = displayCards();
     $flag = 0;
     while($row = mysqli_fetch_assoc($cards)){
@@ -235,7 +239,7 @@ function createCard($card_uuid){
   
 }
 
-function createTransaction($uuid,$description,$vip,$total,$empId){
+function createTransaction($uuid,$description,$vip,$total,$empId){//Hosea
     $con = connectDB();
     $date = date("Y-m-d H:i:s");
     $query = "insert into transaction(card_uuid,description,date,vip,total,employee_id)
@@ -245,7 +249,7 @@ function createTransaction($uuid,$description,$vip,$total,$empId){
     return mysqli_query($con,$query) or die(mysqli_error($con));
 }
 
-function createTransactionRoom($uuid,$description,$vip,$total,$roomId,$roomtimeId,$empId){
+function createTransactionRoom($uuid,$description,$vip,$total,$roomId,$roomtimeId,$empId){//Hosea
     $con = connectDB();
     $date = date("Y-m-d H:i:s");
     $query = "insert into transaction(card_uuid,description,date,vip,total,room_id,roomtime_id,employee_id) 
@@ -254,7 +258,7 @@ function createTransactionRoom($uuid,$description,$vip,$total,$roomId,$roomtimeI
     return mysqli_query($con,$query) or die(mysqli_error($con));
 }
 
-function createRoomtime($room,$hours,$start_time){
+function createRoomtime($room,$hours,$start_time){//Hosea
     $con = connectDB();
     $curr_date = date('Y-m-d');
     $end_time = strtotime("+$hours hours", strtotime($start_time));
@@ -264,7 +268,7 @@ function createRoomtime($room,$hours,$start_time){
     return mysqli_query($con,$query);
 }
 
-function createEmployee($position,$firstname,$middlename,$lastname,$email,$address,$password,$gender){
+function createEmployee($position,$firstname,$middlename,$lastname,$email,$address,$password,$gender){//Earl
     $con = connectDB();
     $date = date("Y-m-d");
     $res = 0;
@@ -278,7 +282,7 @@ function createEmployee($position,$firstname,$middlename,$lastname,$email,$addre
     return $res;
 }
 
-function createRoom($name,$type,$capacity){
+function createRoom($name,$type,$capacity){//soy
     $con = connectDB();
     $status = "unoccupied";
     return mysqli_query($con,"insert into room(room_name,type,capacity,status) values ('$name','$type',$capacity,'$status')");
@@ -289,7 +293,7 @@ function createRoom($name,$type,$capacity){
 
 // ==================== UPDATE FUNCTIONS =====================
 
-function reloadCard($balance,$uuid){
+function reloadCard($balance,$uuid){//Teris
     $res = displayCard($uuid);
     $con = connectDB();
     $row = mysqli_fetch_assoc($res);
@@ -301,7 +305,7 @@ function reloadCard($balance,$uuid){
     return $res;
 }
 
-function extendRoom($hours,$roomId,$roomtimeId){
+function extendRoom($hours,$roomId,$roomtimeId){//Hosea
     $con = connectDB();
     $curr_date = date('Y-m-d');
     $row = getRoomtime2($roomtimeId,$roomId);
@@ -312,7 +316,7 @@ function extendRoom($hours,$roomId,$roomtimeId){
     return mysqli_query($con,"update roomtime set date = '$curr_date', time_end = '$end' where room_id = $roomId && roomtime_id = $roomtimeId");
 }
 
-function updateBalance($balance,$uuid){
+function updateBalance($balance,$uuid){//Hosea
     $con = connectDB();
 
     $query = "update card set balance = $balance where card_uuid = $uuid";
@@ -320,28 +324,28 @@ function updateBalance($balance,$uuid){
     return $res;
 }
 
-function vip($uuid){
+function vip($uuid){//soy
     $con = connectDB();
     $query = "update card set vip = 'T' where card_uuid = $uuid";
     $res = mysqli_query($con,$query);
     return $res;
 }
 
-function updateRoomStatus($room){
+function updateRoomStatus($room){//soy
     $con = connectDB();
     $query = "update room set status = 'occupied' where room_id = $room";
     $res = mysqli_query($con,$query);
     return $res;
 }
 
-function freeRoomStatus($room){
+function freeRoomStatus($room){//soy
     $con = connectDB();
     $query = "update room set status = 'unoccupied' where room_id = $room";
     $res = mysqli_query($con,$query);
     return $res;
 }
 
-function updateRoomtimeStatus($curr_date,$curr_time){
+function updateRoomtimeStatus($curr_date,$curr_time){//soy
     $roomtime = displayRoomtime();
     $con = connectDB();
     $res = 0;
@@ -362,7 +366,7 @@ function updateRoomtimeStatus($curr_date,$curr_time){
     return $res;
 }
 
-function updateEmployee($empId,$position,$firstname,$middlename,$lastname,$email,$address,$password,$gender){
+function updateEmployee($empId,$position,$firstname,$middlename,$lastname,$email,$address,$password,$gender){//Earl
     $con = connectDB();
     ($position == "Admin")?$admin = "T":$admin = "F";
     $query = "update employee set admin= '$admin',firstname='$firstname',middlename='$middlename', 
@@ -372,7 +376,7 @@ function updateEmployee($empId,$position,$firstname,$middlename,$lastname,$email
     return $res = mysqli_query($con,$query);
 }
 
-function updateRoom($roomId,$name,$type,$capacity){
+function updateRoom($roomId,$name,$type,$capacity){//soy
     $con = connectDB();
     $query = "update room set room_name = '$name', type = '$type',capacity = '$capacity' where room_id = $roomId";
     return mysqli_query($con,$query);
@@ -381,9 +385,9 @@ function updateRoom($roomId,$name,$type,$capacity){
 // =========================================================== 
 
 
-// ==================== UPDATE FUNCTIONS =====================
+// ==================== DELETE FUNCTIONS =====================
 
-function deleteCard($uuid){
+function deleteCard($uuid){//Teris
     $con = connectDB();
     $query = "delete from card where card_uuid = $uuid";
 
@@ -391,7 +395,7 @@ function deleteCard($uuid){
     return $res;
 }
 
-function deleteEmployee($empId){
+function deleteEmployee($empId){//Earl
     $con = connectDB();
 
     $res = mysqli_query($con,"delete from employee where employee_id = $empId");
@@ -399,7 +403,7 @@ function deleteEmployee($empId){
     return $res;
 }
 
-function deleteRoom($roomId){
+function deleteRoom($roomId){//soy
     $con = connectDB();
     $query = "delete from room where room_id = $roomId";
 
@@ -411,5 +415,5 @@ function deleteRoom($roomId){
 
 // =========================================================== 
 
-//===================================================== E N D  O F  E M P L O Y E E  F U N C T I O N S ==============================================
+//===================================================== E N D  O F  M O D U L E S ==============================================
 ?>
